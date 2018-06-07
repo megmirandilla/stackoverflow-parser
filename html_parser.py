@@ -18,7 +18,7 @@ for p in qbody:
 question = question_title
 for q in qb_list:
 	question = question + "\n" + q
-print(question)
+# print(question)
 
 #extracting answer
 answers = soup.find_all("div",{"class":"answer"})
@@ -26,3 +26,11 @@ answer_list = []
 for ans in answers:
 	answer_list.append(ans.find("p").text)
 
+author = soup.find_all("div",{"class":"user-details"})
+auth_list = []
+for auth in author:
+	auth_list.append(auth.find("a"))
+
+print(auth_list)
+#still have to extract author name
+#there is a None data type that mixes so it needs to be filtered
