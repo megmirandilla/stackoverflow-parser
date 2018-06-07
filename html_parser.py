@@ -6,16 +6,23 @@ html = response.read()
 
 soup = BeautifulSoup(html, 'html.parser')
 
+#extracting question
 question_title = soup.find("a",{"class":"question-hyperlink"}).text
-question_body = soup.find("div",{"class":"question"}).find("p").text
-question = [question_title,question_body]
-# print(questios)
+question_body = soup.find("div",{"class":"question"})
+qbody = question_body.find_all("p")
 
+qb_list = []
+for p in qbody:
+	qb_list.append(p.text)
+
+question = question_title
+for q in qb_list:
+	question = question + "\n" + q
+print(question)
+
+#extracting answer
 answers = soup.find_all("div",{"class":"answer"})
-
-# print(len(answers))
 answer_list = []
 for ans in answers:
 	answer_list.append(ans.find("p").text)
 
-print(answer_list)
