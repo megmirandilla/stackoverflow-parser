@@ -68,8 +68,18 @@ for block in answer_blocks:
 		answer['author'] = author.pop(0).text
 		ans_upvotes = block.find_previous_sibling("div",{"class":"votecell post-layout--left"}).find("div",{"class":"vote"}).find("span").text
 		answer['upvotes'] = ans_upvotes
-		
+
+		comments_list = []
+		a_comm = block.find_next_sibling("div",{"class":"post-layout--right"}).find_all("div",{"class":"comment-body"})
+		for comm in a_comm:
+			if type(comm) != 'NoneType':
+				comment['desc'] = comm.find("span",{"class":"comment-copy"}).text
+				comment['author'] = comm.find("a").text
+				comments_list.append(copy.deepcopy(comment))
+
+		answer['comments'] = copy.deepcopy(comments_list)
 		answers_list.append(copy.deepcopy(answer))
+		# print(answers_list)		
 
 data['question'] = copy.deepcopy(question)
 data['answers'] = copy.deepcopy(answers_list)
