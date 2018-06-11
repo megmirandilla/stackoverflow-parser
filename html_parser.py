@@ -1,6 +1,7 @@
 import urllib.request
 import pprint
 import copy
+import json
 from bs4 import BeautifulSoup
 
 data = {'question':'', 'answers':''}
@@ -83,3 +84,7 @@ for block in answer_blocks:
 
 data['question'] = copy.deepcopy(question)
 data['answers'] = copy.deepcopy(answers_list)
+
+# print(json.dumps(data))
+with open('data.json','w') as fp:
+	json.dump(data, fp)
